@@ -465,13 +465,13 @@ window.search = window.search || {};
         var searchterm = searchbar.value.trim();
         fetch("/search?query=" + searchterm).then(function(response) {
             return response.json();
-        }).then(function(json) {
-            searchresults_header.innerText = formatSearchMetric(json.length, searchterm);
+        }).then(function(results) {
+            searchresults_header.innerText = formatSearchMetric(results.length, searchterm);
 
             // Clear and insert results
             var searchterms  = searchterm.split(' ');
             removeChildren(searchresults);
-            for(var i = 0; i < json.length; i++) {
+            for(var i = 0; i < results.length; i++) {
                 var resultElem = document.createElement('li');
                 var result = results[i];
                 var eljsResult = { 
