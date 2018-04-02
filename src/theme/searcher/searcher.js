@@ -471,7 +471,7 @@ window.search = window.search || {};
             // Clear and insert results
             var searchterms  = searchterm.split(' ');
             removeChildren(searchresults);
-            for(var i = 0; i < resultcount ; i++) {
+            for(var i = 0; i < json.length; i++) {
                 var resultElem = document.createElement('li');
                 var result = results[i];
                 var eljsResult = { 
