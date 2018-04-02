@@ -126,7 +126,7 @@ window.search = window.search || {};
         }
     }
     
-    function formatSearchResult(result, searchterms) {
+    function formatSearchResult(result, searchterms, book=null) {
         var teaser = makeTeaser(escapeHTML(result.doc.body), searchterms);
         teaser_count++;
 
@@ -136,7 +136,12 @@ window.search = window.search || {};
             url.push("");
         }
 
-        return '<a href="' + url[0] + '?' + URL_MARK_PARAM + '=' + searchterms + '#' + url[1]
+        var title = "";
+        if (book) {
+            title = '<span>' + book + ' » </span>';
+        }
+
+        return title + '<a href="' + url[0] + '?' + URL_MARK_PARAM + '=' + searchterms + '#' + url[1]
             + '" aria-details="teaser_' + teaser_count + '">' + result.doc.breadcrumbs + '</a>'
             + '<span class="teaser" id="teaser_' + teaser_count + '" aria-label="Search Result Teaser">' 
             + teaser + '</span>';
@@ -478,10 +483,10 @@ window.search = window.search || {};
                     ref: `/bookshelf/${result.book[0]}/${result.section[0]}`,
                     doc: {
                         body: result.body[0],
-                        breadcrumbs: `${result.book[0]} » ${result.breadcrumbs[0]}`
+                        breadcrumbs: `${result.breadcrumbs[0]}`
                     }
                 };
-                resultElem.innerHTML = formatSearchResult(eljsResult, searchterms);
+                resultElem.innerHTML = formatSearchResult(eljsResult, searchterms, result.book[0]);
                 searchresults.appendChild(resultElem);
             }
 
