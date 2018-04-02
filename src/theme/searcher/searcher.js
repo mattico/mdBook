@@ -16,6 +16,7 @@ window.search = window.search || {};
         searchresults_header = document.getElementById('searchresults-header'),
         searchicon = document.getElementById('search-toggle'),
         content = document.getElementById('content'),
+        global_button = document.getElementById('search-global'),
 
         searchindex = null,
         resultsoptions = {
@@ -246,6 +247,8 @@ window.search = window.search || {};
         searchicon.addEventListener('click', function(e) { searchIconClickHandler(); }, false);
         searchbar.addEventListener('keyup', function(e) { searchbarKeyUpHandler(); }, false);
         document.addEventListener('keydown', function (e) { globalKeyHandler(e); }, false);
+        global_button.addEventListener('click', function(e) { doSearchGlobal(e); }, false);
+
         // If the user uses the browser buttons, do the same as if a reload happened
         window.onpopstate = function(e) { doSearchOrMarkFromUrl(); };
 
@@ -448,7 +451,7 @@ window.search = window.search || {};
         // Clear and insert results
         var searchterms  = searchterm.split(' ');
         removeChildren(searchresults);
-        for(var i = 0; i < resultcount ; i++){
+        for(var i = 0; i < resultcount ; i++) {
             var resultElem = document.createElement('li');
             resultElem.innerHTML = formatSearchResult(results[i], searchterms);
             searchresults.appendChild(resultElem);
@@ -456,6 +459,34 @@ window.search = window.search || {};
 
         // Display results
         showResults(true);
+    }
+
+    function doSearchGlobal(e) {
+        var searchterm = searchbar.value.trim();
+        fetch("/search?query=" + searchterm).then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            searchresults_header.innerText = formatSearchMetric(json.length, searchterm);
+
+            // Clear and insert results
+            var searchterms  = searchterm.split(' ');
+            removeChildren(searchresults);
+            for(var i = 0; i < resultcount ; i++) {
+                var resultElem = document.createElement('li');
+                var result = results[i];
+                var eljsResult = { 
+                    doc: { 
+                        body: result.body[0], 
+                        breadcrumbs: result.breadcrumbs[0] 
+                    }
+                };
+                resultElem.innerHTML = formatSearchResult(eljsResult, searchterms);
+                searchresults.appendChild(resultElem);
+            }
+
+            // Display results
+            showResults(true);
+        });
     }
 
     init();
