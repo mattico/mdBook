@@ -478,7 +478,7 @@ window.search = window.search || {};
                     ref: `/bookshelf/${result.book[0]}/${result.section[0]}`,
                     doc: {
                         body: result.body[0],
-                        breadcrumbs: result.breadcrumbs[0]
+                        breadcrumbs: `${result.book[0]} » ${result.breadcrumbs[0]}`
                     }
                 };
                 resultElem.innerHTML = formatSearchResult(eljsResult, searchterms);
