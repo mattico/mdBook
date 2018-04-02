@@ -474,10 +474,11 @@ window.search = window.search || {};
             for(var i = 0; i < results.length; i++) {
                 var resultElem = document.createElement('li');
                 var result = results[i];
-                var eljsResult = { 
-                    doc: { 
-                        body: result.body[0], 
-                        breadcrumbs: result.breadcrumbs[0] 
+                var eljsResult = {
+                    ref: result.section[0],
+                    doc: {
+                        body: result.body[0],
+                        breadcrumbs: result.breadcrumbs[0]
                     }
                 };
                 resultElem.innerHTML = formatSearchResult(eljsResult, searchterms);
