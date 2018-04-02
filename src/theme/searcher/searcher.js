@@ -475,7 +475,7 @@ window.search = window.search || {};
                 var resultElem = document.createElement('li');
                 var result = results[i];
                 var eljsResult = {
-                    ref: result.section[0],
+                    ref: `/bookshelf/${result.book[0]}/${result.section[0]}`,
                     doc: {
                         body: result.body[0],
                         breadcrumbs: result.breadcrumbs[0]
