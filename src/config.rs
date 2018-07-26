@@ -397,11 +397,13 @@ impl Default for BuildConfig {
 }
 
 /// Configuration for the HTML renderer.
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
 pub struct HtmlConfig {
     /// The theme directory, if specified.
     pub theme: Option<PathBuf>,
+    /// The name of the theme to select by default.
+    pub default_theme: String,
     /// Use "smart quotes" instead of the usual `"` character.
     pub curly_quotes: bool,
     /// Should mathjax be enabled?
@@ -427,6 +429,24 @@ pub struct HtmlConfig {
     pub no_section_label: bool,
     /// Search settings. If `None`, the default will be used.
     pub search: Option<Search>,
+}
+
+impl Default for HtmlConfig {
+    fn default() -> Self {
+        HtmlConfig {
+            theme: None,
+            default_theme: "light".to_owned(),
+            curly_quotes: false,
+            mathjax_support: false,
+            google_analytics: None,
+            additional_css: Vec::new(),
+            additional_js: Vec::new(),
+            playpen: Playpen::default(),
+            livereload_url: None,
+            no_section_label: false,
+            search: None,
+        }
+    }
 }
 
 impl HtmlConfig {

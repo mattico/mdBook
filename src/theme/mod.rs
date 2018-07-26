@@ -18,7 +18,8 @@ pub static GENERAL_CSS: &'static [u8] = include_bytes!("css/general.css");
 pub static PRINT_CSS: &'static [u8] = include_bytes!("css/print.css");
 pub static VARIABLES_CSS: &'static [u8] = include_bytes!("css/variables.css");
 pub static FAVICON: &'static [u8] = include_bytes!("favicon.png");
-pub static JS: &'static [u8] = include_bytes!("book.js");
+pub static BOOK_JS: &'static [u8] = include_bytes!("book.js");
+pub static THEME_JS: &'static [u8] = include_bytes!("theme.js");
 pub static HIGHLIGHT_JS: &'static [u8] = include_bytes!("highlight.js");
 pub static TOMORROW_NIGHT_CSS: &'static [u8] = include_bytes!("tomorrow-night.css");
 pub static HIGHLIGHT_CSS: &'static [u8] = include_bytes!("highlight.css");
@@ -52,7 +53,8 @@ pub struct Theme {
     pub print_css: Vec<u8>,
     pub variables_css: Vec<u8>,
     pub favicon: Vec<u8>,
-    pub js: Vec<u8>,
+    pub book_js: Vec<u8>,
+    pub theme_js: Vec<u8>,
     pub highlight_css: Vec<u8>,
     pub tomorrow_night_css: Vec<u8>,
     pub ayu_highlight_css: Vec<u8>,
@@ -77,7 +79,8 @@ impl Theme {
             let files = vec![
                 (theme_dir.join("index.hbs"), &mut theme.index),
                 (theme_dir.join("header.hbs"), &mut theme.header),
-                (theme_dir.join("book.js"), &mut theme.js),
+                (theme_dir.join("book.js"), &mut theme.book_js),
+                (theme_dir.join("theme.js"), &mut theme.theme_js),
                 (theme_dir.join("css/chrome.css"), &mut theme.chrome_css),
                 (theme_dir.join("css/general.css"), &mut theme.general_css),
                 (theme_dir.join("css/print.css"), &mut theme.print_css),
@@ -124,7 +127,8 @@ impl Default for Theme {
             print_css: PRINT_CSS.to_owned(),
             variables_css: VARIABLES_CSS.to_owned(),
             favicon: FAVICON.to_owned(),
-            js: JS.to_owned(),
+            book_js: BOOK_JS.to_owned(),
+            theme_js: THEME_JS.to_owned(),
             highlight_css: HIGHLIGHT_CSS.to_owned(),
             tomorrow_night_css: TOMORROW_NIGHT_CSS.to_owned(),
             ayu_highlight_css: AYU_HIGHLIGHT_CSS.to_owned(),
@@ -179,6 +183,7 @@ mod tests {
             "css/print.css",
             "css/variables.css",
             "book.js",
+            "theme.js",
             "highlight.js",
             "tomorrow-night.css",
             "highlight.css",
@@ -204,7 +209,8 @@ mod tests {
             print_css: Vec::new(),
             variables_css: Vec::new(),
             favicon: Vec::new(),
-            js: Vec::new(),
+            book_js: Vec::new(),
+            theme_js: Vec::new(),
             highlight_css: Vec::new(),
             tomorrow_night_css: Vec::new(),
             ayu_highlight_css: Vec::new(),

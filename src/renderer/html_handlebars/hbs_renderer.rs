@@ -138,7 +138,8 @@ impl HtmlHandlebars {
             b"This file makes sure that Github Pages doesn't process mdBook's output.",
         )?;
 
-        write_file(destination, "book.js", &theme.js)?;
+        write_file(destination, "book.js", &theme.book_js)?;
+        write_file(destination, "theme.js", &theme.theme_js)?;
         write_file(destination, "css/general.css", &theme.general_css)?;
         write_file(destination, "css/chrome.css", &theme.chrome_css)?;
         write_file(destination, "css/print.css", &theme.print_css)?;
@@ -411,6 +412,7 @@ fn make_data(
     if let Some(ref livereload) = html_config.livereload_url {
         data.insert("livereload".to_owned(), json!(livereload));
     }
+    data.insert("default_theme".to_owned(), json!(html.default_theme));
 
     // Add google analytics tag
     if let Some(ref ga) = config.html_config().and_then(|html| html.google_analytics) {

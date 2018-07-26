@@ -84,6 +84,8 @@ The following configuration options are available:
 - **theme:** mdBook comes with a default theme and all the resource files
   needed for it. But if this option is set, mdBook will selectively overwrite
   the theme files with the ones found in the specified folder.
+- **default-theme:** Choose the default theme selected for the book.
+  Defaults to `light`.
 - **curly-quotes:** Convert straight quotes to curly quotes, except for
   those that occur in code blocks and code spans. Defaults to `false`.
 - **google-analytics:** If you use Google Analytics, this option lets you
@@ -148,7 +150,8 @@ create-missing = true
 preprocess = ["links", "index"]
 
 [output.html]
-theme = "my-theme"
+theme = "my-theme-dir"
+default-theme = "ayu"
 curly-quotes = true
 google-analytics = "123456"
 additional-css = ["custom.css", "custom2.css"]

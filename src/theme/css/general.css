@@ -1,15 +1,10 @@
 /* Base styles and content styles */
 
-@import 'variables.css';
-
-html {
+body {
     font-family: "Open Sans", sans-serif;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;
-}
-
-body {
     margin: 0;
     font-size: 1rem;
     overflow-x: hidden;

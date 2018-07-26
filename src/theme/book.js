@@ -292,20 +292,13 @@ function playpen_text(playpen) {
 })();
 
 (function themes() {
-    var html = document.querySelector('html');
     var themeToggleButton = document.getElementById('theme-toggle');
     var themePopup = document.getElementById('theme-list');
-    var themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
-    var stylesheets = {
-        ayuHighlight: document.querySelector("[href$='ayu-highlight.css']"),
-        tomorrowNight: document.querySelector("[href$='tomorrow-night.css']"),
-        highlight: document.querySelector("[href$='highlight.css']"),
-    };
-
+    
     function showThemes() {
         themePopup.style.display = 'block';
         themeToggleButton.setAttribute('aria-expanded', true);
-        themePopup.querySelector("button#" + document.body.className).focus();
+        themePopup.querySelector("button#" + getTheme()).focus();
     }
 
     function hideThemes() {
@@ -313,57 +306,6 @@ function playpen_text(playpen) {
         themeToggleButton.setAttribute('aria-expanded', false);
         themeToggleButton.focus();
     }
-
-    function set_theme(theme) {
-        let ace_theme;
-
-        if (theme == 'coal' || theme == 'navy') {
-            stylesheets.ayuHighlight.disabled = true;
-            stylesheets.tomorrowNight.disabled = false;
-            stylesheets.highlight.disabled = true;
-
-            ace_theme = "ace/theme/tomorrow_night";
-        } else if (theme == 'ayu') {
-            stylesheets.ayuHighlight.disabled = false;
-            stylesheets.tomorrowNight.disabled = true;
-            stylesheets.highlight.disabled = true;
-
-            ace_theme = "ace/theme/tomorrow_night";
-        } else {
-            stylesheets.ayuHighlight.disabled = true;
-            stylesheets.tomorrowNight.disabled = true;
-            stylesheets.highlight.disabled = false;
-
-            ace_theme = "ace/theme/dawn";
-        }
-
-        setTimeout(function () {
-            themeColorMetaTag.content = getComputedStyle(document.body).backgroundColor;
-        }, 1);
-
-        if (window.ace && window.editors) {
-            window.editors.forEach(function (editor) {
-                editor.setTheme(ace_theme);
-            });
-        }
-
-        var previousTheme;
-        try { previousTheme = localStorage.getItem('mdbook-theme'); } catch (e) { }
-        if (previousTheme === null || previousTheme === undefined) { previousTheme = 'light'; }
-
-        try { localStorage.setItem('mdbook-theme', theme); } catch (e) { }
-
-        document.body.className = theme;
-        html.classList.remove(previousTheme);
-        html.classList.add(theme);
-    }
-
-    // Set theme
-    var theme;
-    try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
-    if (theme === null || theme === undefined) { theme = 'light'; }
-
-    set_theme(theme);
 
     themeToggleButton.addEventListener('click', function () {
         if (themePopup.style.display === 'block') {
@@ -375,7 +317,7 @@ function playpen_text(playpen) {
 
     themePopup.addEventListener('click', function (e) {
         var theme = e.target.id || e.target.parentElement.id;
-        set_theme(theme);
+        setTheme(theme);
     });
 
     themePopup.addEventListener('focusout', function(e) {
