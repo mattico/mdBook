@@ -402,6 +402,8 @@ impl Default for BuildConfig {
 pub struct HtmlConfig {
     /// The theme directory, if specified.
     pub theme: Option<PathBuf>,
+    todo: allow list of themes, etc?
+    todo: change (default) span in theme menu
     /// The name of the theme to select by default.
     pub default_theme: String,
     /// Use "smart quotes" instead of the usual `"` character.
