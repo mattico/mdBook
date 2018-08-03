@@ -18,7 +18,7 @@ pub fn make_subcommand<'a, 'b>() -> App<'a, 'b> {
 }
 
 // Clean command implementation
-pub fn execute(args: &ArgMatches) -> ::mdbook::errors::Result<()> {
+pub fn execute(args: &ArgMatches<'_>) -> ::mdbook::errors::Result<()> {
     let book_dir = get_book_dir(args);
     let book = MDBook::load(&book_dir)?;
 

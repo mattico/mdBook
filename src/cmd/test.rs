@@ -27,7 +27,7 @@ pub fn make_subcommand<'a, 'b>() -> App<'a, 'b> {
 }
 
 // test command implementation
-pub fn execute(args: &ArgMatches) -> Result<()> {
+pub fn execute(args: &ArgMatches<'_>) -> Result<()> {
     let library_paths: Vec<&str> = args
         .values_of("library-path")
         .map(|v| v.collect())

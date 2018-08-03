@@ -24,7 +24,7 @@ pub fn make_subcommand<'a, 'b>() -> App<'a, 'b> {
 }
 
 // Watch command implementation
-pub fn execute(args: &ArgMatches) -> Result<()> {
+pub fn execute(args: &ArgMatches<'_>) -> Result<()> {
     let book_dir = get_book_dir(args);
     let book = MDBook::load(&book_dir)?;
 
