@@ -1,4 +1,7 @@
+cargo-features = ["edition"]
+
 [package]
+edition = '2018'
 name = "mdbook"
 version = "0.2.1-alpha.0"
 authors = [
