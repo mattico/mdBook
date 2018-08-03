@@ -1,4 +1,5 @@
 #![feature(rust_2018_preview)]
+#![warn(rust_2018_idioms)]
 
 extern crate chrono;
 #[macro_use]
