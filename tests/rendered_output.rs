@@ -1,13 +1,8 @@
-extern crate mdbook;
 #[macro_use]
 extern crate pretty_assertions;
-extern crate select;
-extern crate tempfile;
-extern crate walkdir;
+crate mod dummy_book;
 
-mod dummy_book;
-
-use dummy_book::{assert_contains_strings, assert_doesnt_contain_strings, DummyBook};
+use crate::dummy_book::{assert_contains_strings, assert_doesnt_contain_strings, DummyBook};
 
 use mdbook::config::Config;
 use mdbook::errors::*;
@@ -399,10 +394,10 @@ fn theme_dir_overrides_work_correctly() {
 
 #[cfg(feature = "search")]
 mod search {
-    extern crate serde_json;
-    use dummy_book::DummyBook;
+    use crate::dummy_book::DummyBook;
     use mdbook::utils::fs::file_to_string;
     use mdbook::MDBook;
+    use serde_json;
     use std::fs::File;
     use std::path::Path;
 

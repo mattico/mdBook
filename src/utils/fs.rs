@@ -187,10 +187,9 @@ pub fn copy_files_except_ext(
 
 #[cfg(test)]
 mod tests {
-    extern crate tempfile;
-
     use super::copy_files_except_ext;
     use std::fs;
+    use tempfile;
 
     #[test]
     fn copy_files_except_ext_test() {
