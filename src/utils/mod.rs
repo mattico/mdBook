@@ -74,7 +74,7 @@ pub fn id_from_content(content: &str) -> String {
     normalize_id(trimmed)
 }
 
-fn adjust_links(event: Event) -> Event {
+fn adjust_links(event: Event<'_>) -> Event<'_> {
     lazy_static! {
         static ref HTTP_LINK: Regex = Regex::new("^https?://").unwrap();
         static ref MD_LINK: Regex = Regex::new("(?P<link>.*).md(?P<anchor>#.*)?").unwrap();
@@ -154,7 +154,7 @@ impl EventQuoteConverter {
     }
 }
 
-fn clean_codeblock_headers(event: Event) -> Event {
+fn clean_codeblock_headers(event: Event<'_>) -> Event<'_> {
     match event {
         Event::Start(Tag::CodeBlock(ref info)) => {
             let info: String = info.chars().filter(|ch| !ch.is_whitespace()).collect();

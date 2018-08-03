@@ -34,10 +34,10 @@ pub struct MDBook {
     pub config: Config,
     /// A representation of the book's contents in memory.
     pub book: Book,
-    renderers: Vec<Box<Renderer>>,
+    renderers: Vec<Box<dyn Renderer>>,
 
     /// List of pre-processors to be run on the book
-    preprocessors: Vec<Box<Preprocessor>>,
+    preprocessors: Vec<Box<dyn Preprocessor>>,
 }
 
 impl MDBook {
@@ -120,7 +120,7 @@ impl MDBook {
     /// // etc.
     /// # }
     /// ```
-    pub fn iter(&self) -> BookItems {
+    pub fn iter(&self) -> BookItems<'_> {
         self.book.iter()
     }
 
@@ -165,7 +165,7 @@ impl MDBook {
         Ok(())
     }
 
-    fn run_renderer(&self, preprocessed_book: &Book, renderer: &Renderer) -> Result<()> {
+    fn run_renderer(&self, preprocessed_book: &Book, renderer: &dyn Renderer) -> Result<()> {
         let name = renderer.name();
         let build_dir = self.build_dir_for(name);
         if build_dir.exists() {
@@ -300,8 +300,8 @@ impl MDBook {
 }
 
 /// Look at the `Config` and try to figure out what renderers to use.
-fn determine_renderers(config: &Config) -> Vec<Box<Renderer>> {
-    let mut renderers: Vec<Box<Renderer>> = Vec::new();
+fn determine_renderers(config: &Config) -> Vec<Box<dyn Renderer>> {
+    let mut renderers: Vec<Box<dyn Renderer>> = Vec::new();
 
     if let Some(output_table) = config.get("output").and_then(|o| o.as_table()) {
         for (key, table) in output_table.iter() {
@@ -323,7 +323,7 @@ fn determine_renderers(config: &Config) -> Vec<Box<Renderer>> {
     renderers
 }
 
-fn default_preprocessors() -> Vec<Box<Preprocessor>> {
+fn default_preprocessors() -> Vec<Box<dyn Preprocessor>> {
     vec![
         Box::new(LinkPreprocessor::new()),
         Box::new(IndexPreprocessor::new()),
@@ -331,7 +331,7 @@ fn default_preprocessors() -> Vec<Box<Preprocessor>> {
 }
 
 /// Look at the `MDBook` and try to figure out what preprocessors to run.
-fn determine_preprocessors(config: &Config) -> Result<Vec<Box<Preprocessor>>> {
+fn determine_preprocessors(config: &Config) -> Result<Vec<Box<dyn Preprocessor>>> {
     let preprocess_list = match config.build.preprocess {
         Some(ref p) => p,
         // If no preprocessor field is set, default to the LinkPreprocessor and
@@ -340,7 +340,7 @@ fn determine_preprocessors(config: &Config) -> Result<Vec<Box<Preprocessor>>> {
         None => return Ok(default_preprocessors()),
     };
 
-    let mut preprocessors: Vec<Box<Preprocessor>> = Vec::new();
+    let mut preprocessors: Vec<Box<dyn Preprocessor>> = Vec::new();
 
     for key in preprocess_list {
         match key.as_ref() {
@@ -353,7 +353,7 @@ fn determine_preprocessors(config: &Config) -> Result<Vec<Box<Preprocessor>>> {
     Ok(preprocessors)
 }
 
-fn interpret_custom_renderer(key: &str, table: &Value) -> Box<Renderer> {
+fn interpret_custom_renderer(key: &str, table: &Value) -> Box<dyn Renderer> {
     // look for the `command` field, falling back to using the key
     // prepended by "mdbook-"
     let table_dot_command = table

@@ -14,7 +14,7 @@ pub struct RenderToc {
 }
 
 impl HelperDef for RenderToc {
-    fn call(&self, _h: &Helper, _: &Handlebars, rc: &mut RenderContext) -> Result<(), RenderError> {
+    fn call(&self, _h: &Helper<'_>, _: &Handlebars, rc: &mut RenderContext<'_>) -> Result<(), RenderError> {
         // get value from context data
         // rc.get_path() is current json parent path, you should always use it like this
         // param is the key of value you want to display
