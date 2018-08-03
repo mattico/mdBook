@@ -5,8 +5,8 @@ use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 
 use super::summary::{parse_summary, Link, SectionNumber, Summary, SummaryItem};
-use config::BuildConfig;
-use errors::*;
+use crate::config::BuildConfig;
+use crate::errors::*;
 
 /// Load a book into memory from its `src/` directory.
 pub fn load_book<P: AsRef<Path>>(src_dir: P, cfg: &BuildConfig) -> Result<Book> {
@@ -481,8 +481,7 @@ And here is some \
             .filter_map(|i| match *i {
                 BookItem::Chapter(ref ch) => Some(ch.name.clone()),
                 _ => None,
-            })
-            .collect();
+            }).collect();
         let should_be: Vec<_> = vec![
             String::from("Chapter 1"),
             String::from("Hello World"),

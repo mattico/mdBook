@@ -81,7 +81,6 @@
 //! [`Config`]: config/struct.Config.html
 
 #![deny(missing_docs)]
-
 #![feature(rust_2018_preview)]
 
 #[macro_use]
@@ -116,10 +115,10 @@ pub mod renderer;
 pub mod theme;
 pub mod utils;
 
-pub use book::BookItem;
-pub use book::MDBook;
-pub use config::Config;
-pub use renderer::Renderer;
+pub use crate::book::BookItem;
+pub use crate::book::MDBook;
+pub use crate::config::Config;
+pub use crate::renderer::Renderer;
 
 /// The error types used through out this crate.
 pub mod errors {

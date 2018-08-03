@@ -1,10 +1,10 @@
-use book::{Book, BookItem};
-use config::{Config, HtmlConfig, Playpen};
-use errors::*;
-use renderer::html_handlebars::helpers;
-use renderer::{RenderContext, Renderer};
-use theme::{self, playpen_editor, Theme};
-use utils;
+use crate::book::{Book, BookItem};
+use crate::config::{Config, HtmlConfig, Playpen};
+use crate::errors::*;
+use crate::renderer::html_handlebars::helpers;
+use crate::renderer::{RenderContext, Renderer};
+use crate::theme::{self, playpen_editor, Theme};
+use crate::utils;
 
 use std::collections::BTreeMap;
 use std::collections::HashMap;
@@ -113,7 +113,7 @@ impl HtmlHandlebars {
         theme: &Theme,
         html_config: &HtmlConfig,
     ) -> Result<()> {
-        use utils::fs::write_file;
+        use crate::utils::fs::write_file;
 
         write_file(
             destination,
@@ -500,8 +500,7 @@ fn build_header_links(html: &str) -> String {
                 .expect("Regex should ensure we only ever get numbers here");
 
             wrap_header_with_link(level, &caps[2], &mut id_counter)
-        })
-        .into_owned()
+        }).into_owned()
 }
 
 /// Wraps a single header tag with a link, making sure each tag gets its own
@@ -552,8 +551,7 @@ fn fix_code_blocks(html: &str) -> String {
                 classes = classes,
                 after = after
             )
-        })
-        .into_owned()
+        }).into_owned()
 }
 
 fn add_playpen_pre(html: &str, playpen_config: &Playpen) -> String {
@@ -589,8 +587,7 @@ fn add_playpen_pre(html: &str, playpen_config: &Playpen) -> String {
                 // not language-rust, so no-op
                 text.to_owned()
             }
-        })
-        .into_owned()
+        }).into_owned()
 }
 
 fn partition_source(s: &str) -> (String, String) {

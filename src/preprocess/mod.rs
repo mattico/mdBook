@@ -6,9 +6,9 @@ pub use self::links::LinkPreprocessor;
 mod index;
 mod links;
 
-use book::Book;
-use config::Config;
-use errors::*;
+use crate::book::Book;
+use crate::config::Config;
+use crate::errors::*;
 
 use std::path::PathBuf;
 

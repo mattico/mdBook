@@ -15,25 +15,25 @@ macro_rules! summary_md_test {
         #[test]
         fn $name() {
             env_logger::try_init().ok();
-
+        
             let filename = Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("tests")
                 .join("summary_md_files")
                 .join($filename);
-
+        
             if !filename.exists() {
                 panic!("{} Doesn't exist", filename.display());
             }
-
+        
             let mut content = String::new();
             File::open(&filename)
                 .unwrap()
                 .read_to_string(&mut content)
                 .unwrap();
-
+        
             if let Err(e) = book::parse_summary(&content) {
                 use error_chain::ChainedError;
-
+        
                 eprintln!("Error parsing {}", filename.display());
                 eprintln!();
                 eprintln!("{}", e.display_chain());

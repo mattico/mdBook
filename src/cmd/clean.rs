@@ -1,5 +1,5 @@
 use clap::{App, ArgMatches, SubCommand};
-use get_book_dir;
+use crate::get_book_dir;
 use mdbook::errors::*;
 use mdbook::MDBook;
 use std::fs;
@@ -11,8 +11,7 @@ pub fn make_subcommand<'a, 'b>() -> App<'a, 'b> {
         .arg_from_usage(
             "-d, --dest-dir=[dest-dir] 'Output directory for the book{n}\
              (If omitted, uses build.build-dir from book.toml or defaults to ./book)'",
-        )
-        .arg_from_usage(
+        ).arg_from_usage(
             "[dir] 'Root directory for the book{n}\
              (Defaults to the Current Directory when omitted)'",
         )

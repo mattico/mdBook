@@ -1,7 +1,7 @@
 use std::collections::BTreeMap;
 use std::path::Path;
 
-use utils;
+use crate::utils;
 
 use handlebars::{Handlebars, Helper, HelperDef, RenderContext, RenderError};
 use pulldown_cmark::{html, Event, Parser, Tag};
