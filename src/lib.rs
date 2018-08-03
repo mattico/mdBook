@@ -117,10 +117,10 @@ pub mod errors {
 
     error_chain!{
         foreign_links {
-            Io(::std::io::Error) #[doc = "A wrapper around `std::io::Error`"];
+            Io(std::io::Error) #[doc = "A wrapper around `std::io::Error`"];
             HandlebarsRender(::handlebars::RenderError) #[doc = "Handlebars rendering failed"];
             HandlebarsTemplate(Box<::handlebars::TemplateError>) #[doc = "Unable to parse the template"];
-            Utf8(::std::string::FromUtf8Error) #[doc = "Invalid UTF-8"];
+            Utf8(std::string::FromUtf8Error) #[doc = "Invalid UTF-8"];
             SerdeJson(::serde_json::Error) #[doc = "JSON conversion failed"];
         }
 
@@ -130,7 +130,7 @@ pub mod errors {
 
         errors {
             /// A subprocess exited with an unsuccessful return code.
-            Subprocess(message: String, output: ::std::process::Output) {
+            Subprocess(message: String, output: std::process::Output) {
                 description("A subprocess failed")
                 display("{}: {}", message, String::from_utf8_lossy(&output.stdout))
             }

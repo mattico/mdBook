@@ -3,21 +3,15 @@
 
 // Not all features are used in all test crates, so...
 #![allow(dead_code, unused_variables, unused_imports, unused_extern_crates)]
-extern crate mdbook;
-extern crate tempfile;
-extern crate walkdir;
 
+use tempfile::{Builder as TempFileBuilder, TempDir};
+use walkdir::WalkDir;
+use mdbook::MDBook;
 use mdbook::errors::*;
 use mdbook::utils::fs::file_to_string;
 use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
-
-// The funny `self::` here is because we've got an `extern crate ...` and are
-// in a submodule
-use self::mdbook::MDBook;
-use self::tempfile::{Builder as TempFileBuilder, TempDir};
-use self::walkdir::WalkDir;
 
 /// Create a dummy book in a temporary directory, using the contents of
 /// `SUMMARY_MD` as a guide.

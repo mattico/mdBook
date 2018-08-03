@@ -1,11 +1,9 @@
-extern crate notify;
-
-use self::notify::Watcher;
 use clap::{App, ArgMatches, SubCommand};
 use crate::{get_book_dir, open};
 use mdbook::errors::Result;
 use mdbook::utils;
 use mdbook::MDBook;
+use notify::Watcher;
 use std::path::Path;
 use std::sync::mpsc::channel;
 use std::time::Duration;
@@ -51,8 +49,8 @@ pub fn trigger_on_change<F>(book: &MDBook, closure: F)
 where
     F: Fn(&Path, &Path),
 {
-    use self::notify::DebouncedEvent::*;
-    use self::notify::RecursiveMode::*;
+    use notify::DebouncedEvent::*;
+    use notify::RecursiveMode::*;
 
     // Create a channel to receive the events.
     let (tx, rx) = channel();
@@ -61,14 +59,14 @@ where
         Ok(w) => w,
         Err(e) => {
             error!("Error while trying to watch the files:\n\n\t{:?}", e);
-            ::std::process::exit(1)
+            std::process::exit(1)
         }
     };
 
     // Add the source directory to the watcher
     if let Err(e) = watcher.watch(book.source_dir(), Recursive) {
         error!("Error while watching {:?}:\n    {:?}", book.source_dir(), e);
-        ::std::process::exit(1);
+        std::process::exit(1);
     };
 
     let _ = watcher.watch(book.theme_dir(), Recursive);

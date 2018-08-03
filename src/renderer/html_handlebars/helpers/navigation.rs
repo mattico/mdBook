@@ -45,7 +45,10 @@ impl Target {
     }
 }
 
-fn find_chapter(rc: &mut RenderContext<'_>, target: Target) -> Result<Option<StringMap>, RenderError> {
+fn find_chapter(
+    rc: &mut RenderContext<'_>,
+    target: Target,
+) -> Result<Option<StringMap>, RenderError> {
     debug!("Get data from context");
 
     let chapters = rc.evaluate_absolute("chapters", true).and_then(|c| {
@@ -129,7 +132,11 @@ fn render(
     Ok(())
 }
 
-pub fn previous(_h: &Helper<'_>, r: &Handlebars, rc: &mut RenderContext<'_>) -> Result<(), RenderError> {
+pub fn previous(
+    _h: &Helper<'_>,
+    r: &Handlebars,
+    rc: &mut RenderContext<'_>,
+) -> Result<(), RenderError> {
     trace!("previous (handlebars helper)");
 
     if let Some(previous) = find_chapter(rc, Target::Previous)? {
@@ -139,7 +146,11 @@ pub fn previous(_h: &Helper<'_>, r: &Handlebars, rc: &mut RenderContext<'_>) -> 
     Ok(())
 }
 
-pub fn next(_h: &Helper<'_>, r: &Handlebars, rc: &mut RenderContext<'_>) -> Result<(), RenderError> {
+pub fn next(
+    _h: &Helper<'_>,
+    r: &Handlebars,
+    rc: &mut RenderContext<'_>,
+) -> Result<(), RenderError> {
     trace!("next (handlebars helper)");
 
     if let Some(next) = find_chapter(rc, Target::Next)? {

@@ -1,15 +1,10 @@
 #![feature(rust_2018_preview)]
 #![warn(rust_2018_idioms)]
 
-extern crate chrono;
 #[macro_use]
 extern crate clap;
-extern crate env_logger;
-extern crate error_chain;
 #[macro_use]
 extern crate log;
-extern crate mdbook;
-extern crate open;
 
 use chrono::Local;
 use clap::{App, AppSettings, ArgMatches};
@@ -66,7 +61,7 @@ fn main() {
     if let Err(e) = res {
         utils::log_backtrace(&e);
 
-        ::std::process::exit(101);
+        std::process::exit(101);
     }
 }
 

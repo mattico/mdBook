@@ -1,18 +1,13 @@
-extern crate iron;
-extern crate staticfile;
-extern crate ws;
-
-use self::iron::{
-    status, AfterMiddleware, Chain, Iron, IronError, IronResult, Request, Response, Set,
-};
 #[cfg(feature = "watch")]
 use super::watch;
 use clap::{App, Arg, ArgMatches, SubCommand};
 use crate::{get_book_dir, open};
+use iron::{status, AfterMiddleware, Chain, Iron, IronError, IronResult, Request, Response, Set};
 use mdbook::errors::*;
 use mdbook::utils;
 use mdbook::MDBook;
-use std;
+use staticfile;
+use ws;
 
 struct ErrorRecover;
 
