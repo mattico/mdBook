@@ -1,11 +1,9 @@
-extern crate ammonia;
-extern crate elasticlunr;
-
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
-use self::elasticlunr::Index;
+use ammonia;
+use elasticlunr::Index;
 use pulldown_cmark::*;
 use serde_json;
 
@@ -170,7 +168,7 @@ fn render_item(
 }
 
 fn write_to_json(index: Index, search_config: &Search, doc_urls: Vec<String>) -> Result<String> {
-    use self::elasticlunr::config::{SearchBool, SearchOptions, SearchOptionsField};
+    use elasticlunr::config::{SearchBool, SearchOptions, SearchOptionsField};
     use std::collections::BTreeMap;
 
     #[derive(Serialize)]
