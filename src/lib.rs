@@ -82,6 +82,8 @@
 
 #![deny(missing_docs)]
 
+#![feature(rust_2018_preview)]
+
 #[macro_use]
 extern crate error_chain;
 extern crate handlebars;
